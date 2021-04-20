@@ -4,7 +4,7 @@ require './lib/bookmark'
 
 class BookmarkManager < Sinatra::Base
 	configure :development do 
-		register Sinatra::reloader
+		register Sinatra::Reloader
 	end
 
 	get '/' do 
