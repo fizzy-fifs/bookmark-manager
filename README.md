@@ -1,7 +1,7 @@
 # Bookmark Manager
 
 This is a bookmark management app I have created to meet the following specifications:
-    - Show a list of bookmarks
+    - Show a list of bookmarks /n
     - Add new bookmarks
     - Delete bookmarks
     - Update bookmarks
