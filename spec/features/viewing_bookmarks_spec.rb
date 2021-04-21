@@ -1,7 +1,9 @@
 feature 'Viewing bookmarks' do
     scenario 'visiting the index page' do
       visit('/')
-      expect(page).to have_content "Bookmark Manager"
+      expect(page).to have_content "Welcome to your Bookmark manager"
+      expect(page).to have_selector(:link_or_button, 'Bookmarks')
+      expect(page).to have_field("add_bookmarks")
     end
 
     scenario 'A user can see bookmarks' do
@@ -16,5 +18,13 @@ feature 'Viewing bookmarks' do
       expect(page).to have_content "http://www.makersacademy.com"
       expect(page).to have_content "http://www.destroyallsoftware.com"
       expect(page).to have_content "http://www.google.com"
+    end
+
+    scenario 'creates a new bookmark' do
+      connection = PG.connect(dbname: 'bookmark_manager_test')
+      add_bookmarks_to_db
+      Bookmark.create("www.twitter.com")
+      visit('/bookmarks')
+      expect(page).to have_content "www.twitter.com"
     end
   end

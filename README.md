@@ -16,6 +16,9 @@ This is a bookmark management app I have created to meet the following specifica
     So that I can visit my favourite sites quickly
     I would like to see a list of my bookmarks
 
+    As a user
+    So that I can record new websites I like
+    I would like to be able to add a new bookmark
 
 ## Domain Model
 
