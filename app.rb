@@ -9,16 +9,14 @@ class BookmarkManager < Sinatra::Base
   
   enable :sessions
 
-  set :port, 4569
+  set :port, 4567
 
 	get '/' do 
 		erb :'root/index'
 	end
 
   post '/new' do
-    session[:add_bookmarks] = params[:add_bookmarks]
-    bookmark = Bookmark.new
-    bookmark.create(session[:add_bookmarks])
+    Bookmark.create(url: params[:enter_url], title: params[:enter_title])
     redirect '/bookmarks'
   end
 
