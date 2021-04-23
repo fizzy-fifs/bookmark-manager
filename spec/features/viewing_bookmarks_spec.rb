@@ -28,4 +28,28 @@ feature 'Viewing bookmarks' do
     visit('/bookmarks')
     expect(page).to have_content "Twitter"
   end
+
+  scenario 'A user can delete a bookmark' do
+    Bookmark.create(url: 'http://www.makersacademy.com', title: 'Makers Academy')
+    visit('/bookmarks')
+    expect(page).to have_link('Makers Academy', href: 'http://www.makersacademy.com')
+
+    click_button 'Delete'
+
+    expect(current_path).to eq '/bookmarks'
+    expect(page).not_to have_link('Makers Academy', href: 'http://www.makersacademy.com')
+  end
+
+  scenario 'A user can update bookmarks' do
+    Bookmark.create(url: 'http://www.makersacademy.com', title: 'Makers Academy')
+    visit('/bookmarks')
+    expect(page).to have_link('Makers Academy', href: 'http://www.makersacademy.com')
+
+    click_button 'Update Me!'
+    fill_in('update_url', with: 'http://www.google.co.uk')
+    fill_in('update_title', with: 'Google')
+    click_button 'Submit'
+    expect(page).not_to have_link('Makers Academy', href: 'http://www.makersacademy.com')
+    expect(page).to have_link('Google', href: 'http://www.google.co.uk')
+  end
 end

@@ -6,10 +6,10 @@ class BookmarkManager < Sinatra::Base
 	configure :development do 
 		register Sinatra::Reloader
 	end
-  
-  enable :sessions
 
-  set :port, 4567
+  set :port, 4563
+
+  enable :sessions, :method_override
 
 	get '/' do 
 		erb :'root/index'
@@ -25,6 +25,20 @@ class BookmarkManager < Sinatra::Base
 		erb :'bookmarks/index'
 	end
 
+  delete '/bookmarks/:id' do
+    Bookmark.delete(params[:id])
+    redirect '/bookmarks'
+  end
+
+  get '/bookmarks/:id' do
+    @update = params[:id]
+    erb :update
+  end
+
+  patch '/bookmarks/:id' do
+    Bookmark.update(id: params["id"], url: params["update_url"], title: params["update_title"])
+    redirect '/bookmarks'
+  end
 
 	run! if app_file == $0
 end
